@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<YealinkIPPhoneDirectory>
+	{% for klant in klanten %}
+	<DirectoryEntry>
+		<Name>{{ klant.displaynaam }}</Name>
+		{% for cp in klant['contactpersonen'] %}
+		{% if cp['telefoon1'] %}
+		<Telephone>{{ cp.telefoon1 }}</Telephone>
+		{% endif %}
+		{% if cp['telefoon2'] %}
+		<Telephone>{{ cp.telefoon2 }}</Telephone>
+		{% endif %}
+		{% endfor %}
+	</DirectoryEntry>
+	{% endfor %}
+</YealinkIPPhoneDirectory>
