@@ -4,11 +4,15 @@ app = Flask(__name__)
 
 @app.route("/<recrasurl>")
 def hello(recrasurl):
-    if request.authorization is None:
+    if request.authorization:
+        credentials = (request.authorization['username'], request.authorization['password'])
+    elif request.args.get('username') and request.args.get('password'):
+        credentials = (request.args.get('username'), request.args.get('password'))
+    else:
         abort(401)
 
     try:
-        resp = requests.get("https://{0}/api2.php/klanten".format(recrasurl), auth=(request.authorization['username'], request.authorization['password']))
+        resp = requests.get("https://{0}/api2.php/klanten".format(recrasurl), auth=credentials)
         resp.raise_for_status()
 
         return render_template('phonebookdirectory.xml', klanten=resp.json())
