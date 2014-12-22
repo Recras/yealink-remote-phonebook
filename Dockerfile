@@ -1,11 +1,9 @@
 FROM python:2-onbuild
 
-RUN useradd --system flask
-
-EXPOSE 5000
-
+EXPOSE 8000
+RUN useradd --system gunicorn
 RUN pip install gunicorn
 
-USER flask
+USER gunicorn
 
-CMD [ "python", "/usr/src/app/project/website.py" ]
+CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "--pythonpath", "/usr/src/app/project", "website:app" ]
