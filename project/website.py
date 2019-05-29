@@ -13,7 +13,7 @@ def hello(recrasurl):
         abort(401)
 
     try:
-        resp = requests.get("https://{0}/api2.php/contacten?page_size={1}".format(recrasurl, 100000), auth=credentials)
+        resp = requests.get("https://{0}/api2.php/contacten?page_size=1000&sort_by=id&sort_order=desc".format(recrasurl), auth=credentials)
         resp.raise_for_status()
 
         return render_template('phonebookdirectory.xml', klanten=resp.json())
