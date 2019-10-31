@@ -17,7 +17,8 @@ def hello(recrasurl):
         resp.raise_for_status()
 
         return render_template('phonebookdirectory.xml', klanten=resp.json())
-    except requests.ConnectionError, e:
+    except (requests.ConnectionError, e):
+        print("%s" % e )
         abort(404)
     except: # catch *all* exceptions
         e = sys.exc_info()[0]

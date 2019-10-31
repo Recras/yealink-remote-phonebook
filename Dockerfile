@@ -1,4 +1,4 @@
-FROM python:2-onbuild
+FROM python:3-onbuild
 
 EXPOSE 8000
 RUN useradd --system gunicorn
